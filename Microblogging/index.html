@@ -1,26 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <title>Microblogging Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Event Handler</title>
+  <style>
+    .post-card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px;
+      background-color: #f9f9f9;
+    }
+
+    .post-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .create-post {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px;
+      background-color: #f9f9f9;
+    }
+
+    .create-post-input {
+      display: flex;
+      align-items: center;
+    }
+
+    #postText {
+      margin-left: 10px;
+    }
+
+    .create-post-links {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .create-post-links li {
+      list-style: none;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    /*space*/
+
+    *{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    border-radius: 8%;
+}
+body{
+    background: #f0f2f5;
+    color: #5f5f5f;
+}
+
+/* -------------main-content------------ */
+.main-content{
+    flex-basis: 47%;
+}
+
+button {
+  list-style: none;
+  background: #045be6;
+  color: #fff;
+  border-radius: 8%;
+  border-top: 1px solid #045be6;
+  border-bottom: 1px solid #045be6;
+  flex-basis: 25%;
+  height: 40px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+}
+
+
+.create-post{
+    background: #fff;
+}
+.create-post-input{
+    padding: 20px 25px 10px;
+    display: flex;
+    align-items: flex-start;
+}
+.create-post-input img{
+    width: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.create-post-input textarea{
+    width: 100%;
+    border: 0;
+    outline: 0;
+    resize: none;
+    background: transparent;
+    margin-top: 8px;
+}
+::placeholder{
+    font-weight: 500;
+}
+.create-post-links{
+    display: flex;
+    align-items: flex-start;
+}
+.create-post-links li{
+    list-style: none;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    flex-basis: 25%;
+    height: 40px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.create-post-links li img{
+    width: 15px;
+    margin-right: 5px;
+}
+.create-post-links li:last-child{
+    background: #045be6;
+    color: #fff;
+    border-top: 0;
+    border-right: 0;
+}
+.sort-by{
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+.sort-by hr{
+    flex: 1;
+    border: 0;
+    height: 1px;
+    background: #ccc;
+}
+.sort-by p{
+    font-size: 13px;
+    padding-left: 5px;
+}
+.sort-by p span{
+    font-weight: 600;
+    cursor: pointer;
+}
+.sort-by p span img{
+    width: 12px;
+    margin-left: 3px;
+}
+.post{
+    background: #fff;
+    padding: 20px 25px 5px;
+    margin: 5px 0 15px;
+}
+.post-author{
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+.post-author img{
+    width: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+.post-author h1{
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+.post-author small{
+    display: block;
+    margin-bottom: -2px;
+}
+.post p{
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+.post-stats{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+}
+.post-stats div{
+    display: flex;
+    align-items: center;
+}
+.post-stats img{
+    width: 15px;
+    margin-right: -5px;
+}
+.liked-users{
+    margin-left: 10px;
+}
+.post-activity{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+.post-activity div{
+    display: flex;
+    align-items: center;
+}
+.post-activity-user-icon{
+    width: 22px;
+    border-radius: 50%;
+}
+.post-activity-arrow-icon{
+    width: 12px;
+    margin-left: 5px;
+}
+.post-activity-link img{
+    width: 18px;
+    margin-right: 8px;
+}
+
+
+
+
+  </style>
 </head>
 <body>
-    <div class="container">
-        <form id="loginForm">
-            <h2>Login</h2>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            
-            <button type="button" onclick="login()">Login</button>
-        </form>
-        <p id="error-message"></p>
-    </div>
 
-    <script src="scripts/script.js"></script>
+<div class="main-content">
+
+  <div class="create-post">
+    <div class="create-post-input">
+      <textarea id="postText" rows="2" placeholder="Write a post"></textarea>
+    </div>
+    <div class="create-post-links">
+      <li><img src="images/photo.png">Photo</li>
+      <li><img src="images/video.png">Video</li>
+      <li><img src="images/event.png">Event</li>
+      <button id="postElement">Post</button>
+    </div>
+  </div>
+
+  <div id="postColumn" class="post-column">
+    <!-- Existing posts will be appended here -->
+  </div>
+
+  <div class="sort-by">
+    <hr>
+  </div>
+
+</div>
+
+<script>
+  var postButton = document.getElementById("postElementNew");
+  var postColumn = document.getElementById("postColumn");
+
+  postButton.addEventListener("click", function() {
+    var userInput = document.getElementById("postText").value;
+
+    if (userInput) {
+      var postCard = document.createElement("div");
+      postCard.className = "post-card";
+      postCard.textContent = userInput;
+
+      postColumn.appendChild(postCard);
+    }
+  });
+</script>
+
 </body>
 </html>
